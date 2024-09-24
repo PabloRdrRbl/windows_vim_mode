@@ -19,7 +19,7 @@ global vimMode
         ; If Vim mode is not active, activate it
         vimMode := true
         Tooltip("Vim Mode: ON")
-        Sleep(1000)  ; Display the tooltip for 1 second
+        ;Sleep(1000)  ; Display the tooltip for 1 second
         ;ToolTip("")  ; Clear the tooltip
     }
     return
