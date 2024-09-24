@@ -27,30 +27,45 @@ global vimMode
 
 ; Remap keys for Vim mode when active
 #HotIf vimMode
-h::Send {LEFT}         ; h            ->    LEFT                 (Cursor left one character)
-b::Send ^{LEFT}        ; b            ->    CTRL + LEFT          (Cursor left per word)
-+h::Send +{LEFT}       ; SHIFT + h    ->    SHIFT + LEFT         (Select one character)
-+b::Send +^{LEFT}      ; SHIFT + b    ->    SHIFT + CTRL + LEFT  (Select per word)
+h::Send("{Left}")         ; h            ->    LEFT                 (Cursor left one character)
+b::Send("^{Left}")        ; b            ->    CTRL + LEFT          (Cursor left per word)
++h::Send("+{Left}")       ; SHIFT + h    ->    SHIFT + LEFT         (Select one character)
++b::Send("+^{Left}")      ; SHIFT + b    ->    SHIFT + CTRL + LEFT  (Select per word)
 
-l::Send {RIGHT}        ; l            ->    RIGHT                (Cursor right one character)
-w::Send ^{RIGHT}       ; w            ->    CTRL + RIGHT         (Cursor right per word)
-+l::Send +{RIGHT}      ; SHIFT + l    ->    SHIFT + RIGHT        (Select one character)
-+w::Send +^{RIGHT}     ; SHIFT + W    ->    SHIFT + CTRL + RIGHT (Select per word)
+l::Send("{Right}")        ; l            ->    RIGHT                (Cursor right one character)
+w::Send("^{Right}")       ; w            ->    CTRL + RIGHT         (Cursor right per word)
++l::Send("+{Right}")      ; SHIFT + l    ->    SHIFT + RIGHT        (Select one character)
++w::Send("+^{Right}")     ; SHIFT + w    ->    SHIFT + CTRL + RIGHT (Select per word)
 
-k::Send {UP}           ; k            ->    UP                   (Cursor up line)
-+k::Send +{UP}         ; SHIFT + k    ->    SHIFT + UP           (Select one line)
+k::Send("{Up}")           ; k            ->    UP                   (Cursor up line)
++k::Send("+{Up}")         ; SHIFT + k    ->    SHIFT + UP           (Select one line)
 
-j::Send {DOWN}         ; j            ->    LEFT                 (Cursor down line)
-+j::Send +{DOWN}       ; SHIFT + j    ->    SHIFT + LEFT         (Select one line)
+j::Send("{Down}")         ; j            ->    DOWN                 (Cursor down line)
++j::Send("+{Down}")       ; SHIFT + j    ->    SHIFT + DOWN         (Select one line)
 
-a::Send {HOME}         ; a            ->    HOME                 (Cursor to beginning of line)
-+a::Send +{HOME}       ; SHIFT + a    ->    SHIFT + HOME         (Select to beginning of line)
-f::Send {END}          ; f            ->    END                  (Cursor to end of line)
-+f::Send +{END}        ; SHIFT + f    ->    SHIFT + END          (Select to end of line)
+a::Send("{Home}")         ; a            ->    HOME                 (Cursor to beginning of line)
++a::Send("+{Home}")       ; SHIFT + a    ->    SHIFT + HOME         (Select to beginning of line)
+f::Send("{End}")          ; f            ->    END                  (Cursor to end of line)
++f::Send("+{End}")        ; SHIFT + f    ->    SHIFT + END          (Select to end of line)
 
-m::Send {Del}          ; m            ->    DEL                  (Delete one character)
-n::Send {Backspace}    ; n            ->    BACKSPACE            (Backspace one character)
+m::Send("{Del}")          ; m            ->    DEL                  (Delete one character)
+n::Send("{Backspace}")    ; n            ->    BACKSPACE            (Backspace one character)
 
-u::Send ^{z}           ; u            ->    CTRL + z             (Undo)
-+u::Send ^{y}          ; SHIFT + u    ->    CTRL + y             (Redo)
+u::Send("^{z}")           ; u            ->    CTRL + z             (Undo)
++u::Send("^{y}")          ; SHIFT + u    ->    CTRL + y             (Redo)
+
+i::  ; Add this line to allow "i" to exit Vim mode
+{
+    global vimMode
+    vimMode := false
+    Tooltip("Vim Mode: OFF")
+    Sleep(1000)  ; Display the tooltip for 1 second
+    ToolTip("")  ; Clear the tooltip	
+    return
+}
+
+; *::Return  ; Block all other key presses that are not defined
+
 #HotIf
+
+
